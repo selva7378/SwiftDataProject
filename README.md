@@ -1,25 +1,30 @@
-# SwiftData Project — Lesson 1: Editing SwiftData Model Objects
+# SwiftData Project — Lesson 2: Filtering @Query Using #Predicate
 
-This branch covers **Lesson 1** of Project 12 in Paul Hudson's [100 Days of SwiftUI](https://www.hackingwithswift.com/books/ios-swiftui/editing-swiftdata-model-objects).
+This branch covers **Lesson 2** of Project 12 in Paul Hudson's [100 Days of SwiftUI](https://www.hackingwithswift.com/books/ios-swiftui/filtering-query-using-predicate).
 
 ---
 
 ## 📱 Preview
 
 <p align="center">
-  <img src="screenshots/screenshot_lesson1.png" alt="Lesson 1 - Editing Model Objects" width="300" />
+  <img src="screenshots/screenshot_lesson2.png" alt="Lesson 2 - Filtering with #Predicate" width="300" />
 </p>
 
 ---
 
 ## 💡 Concepts Covered
 
-1. **`@Model` Macro**:
-   - Creating a persistent data model class `User` tracking `name`, `city`, and `joinDate`.
-2. **`@Bindable` Property Wrapper**:
-   - Creating direct two-way bindings to SwiftData model properties inside `EditUserView`.
-3. **Seamless Navigation & In-Place Editing**:
-   - Navigating via `NavigationLink(value: user)` and `.navigationDestination(for: User.self)`.
-   - Modifying fields directly in `Form` with automatic model context persistence.
-4. **`modelContainer(for: User.self)`**:
-   - Registering the SwiftData container at the app entry point (`SwiftDataProjectApp.swift`).
+1. **`#Predicate` Macro**:
+   - Filtering SwiftData models directly at database query time.
+   - Example: filtering users whose names contain "R" and whose city is "London":
+     ```swift
+     @Query(filter: #Predicate<User> { user in
+         user.name.localizedStandardContains("R") &&
+         user.city == "London"
+     }, sort: \User.name) var users: [User]
+     ```
+2. **Type-Safe Predicate Expressions**:
+   - Using standard Swift closure syntax that compiles down into underlying database conditions.
+   - Leveraging `localizedStandardContains` for case- and diacritic-insensitive search.
+3. **Combining Multiple Conditions**:
+   - Using logical `&&` and `||` to chain multiple query constraints cleanly.

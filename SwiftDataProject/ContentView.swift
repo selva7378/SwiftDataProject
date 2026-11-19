@@ -8,17 +8,32 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
-    @Query(sort: \User.name) var users: [User]
+    @Query(filter: #Predicate<User> { user in
+        user.name.localizedStandardContains("R") &&
+        user.city == "London"
+    }, sort: \User.name) var users: [User]
     @State private var path = [User]()
 
     var body: some View {
         NavigationStack(path: $path) {
             List(users) { user in
                 NavigationLink(value: user) {
-                    Text(user.name)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(user.name)
+                                .font(.headline)
+                            Text(user.city)
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                        Text(user.joinDate.formatted(date: .abbreviated, time: .omitted))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
                 }
             }
-            .navigationTitle("Users")
+            .navigationTitle("Users (Filtered)")
             .navigationDestination(for: User.self) { user in
                 EditUserView(user: user)
             }
