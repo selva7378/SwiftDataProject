@@ -27,9 +27,13 @@ struct UsersView: View {
                             .foregroundStyle(.secondary)
                     }
                     Spacer()
-                    Text(user.joinDate.formatted(date: .abbreviated, time: .omitted))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                    Text("^[\(user.jobs.count) job](inflect: true)")
+                        .font(.caption.bold())
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(.blue.opacity(0.12))
+                        .foregroundStyle(.blue)
+                        .clipShape(Capsule())
                 }
             }
         }

@@ -1,30 +1,31 @@
-# SwiftData Project — Lesson 3: Dynamically Sorting and Filtering @Query
+# SwiftData Project — Lesson 4: Relationships with SwiftData, SwiftUI, and @Query
 
-This branch covers **Lesson 3** of Project 12 in Paul Hudson's [100 Days of SwiftUI](https://www.hackingwithswift.com/books/ios-swiftui/dynamically-sorting-and-filtering-query-with-swiftdata).
+This branch covers **Lesson 4** of Project 12 in Paul Hudson's [100 Days of SwiftUI](https://www.hackingwithswift.com/books/ios-swiftui/relationships-with-swiftdata-swiftui-and-query).
 
 ---
 
 ## 📱 Preview
 
 <p align="center">
-  <img src="screenshots/screenshot_lesson3.png" alt="Lesson 3 - Dynamic Sorting and Filtering" width="300" />
+  <img src="screenshots/screenshot_lesson4.png" alt="Lesson 4 - Relationships with SwiftData" width="300" />
 </p>
 
 ---
 
 ## 💡 Concepts Covered
 
-1. **Dynamic `@Query` in a Custom Subview (`UsersView`)**:
-   - Because a view's `@Query` cannot be reconfigured directly after initialization, we extract the list into a dedicated child view (`UsersView`).
-   - Inside `UsersView.init`, we configure `_users = Query(...)` using dynamic runtime predicates and sort descriptors:
+1. **Modeling Relationships with `@Relationship`**:
+   - Creating a second model `Job` with properties `name`, `priority`, and optional inverse `owner: User?`.
+   - Linking `User` to `Job` with a cascade deletion rule:
      ```swift
-     init(minimumJoinDate: Date, sortOrder: [SortDescriptor<User>]) {
-         _users = Query(filter: #Predicate<User> { user in
-             user.joinDate >= minimumJoinDate
-         }, sort: sortOrder)
-     }
+     @Relationship(deleteRule: .cascade) var jobs = [Job]()
      ```
-2. **Dynamic Sort Orders**:
-   - Using `SortDescriptor` arrays with a toolbar `Menu` and `Picker` to switch between "Sort by Name" and "Sort by Join Date".
-3. **Dynamic Filtering**:
-   - Toggling between "Show Upcoming" (users whose `joinDate >= .now`) and "Show Everyone".
+2. **Cascade Delete Rule**:
+   - Ensuring that when a `User` is deleted from the SwiftData context, all of their associated `Job` records are automatically removed.
+3. **Displaying Related Entities**:
+   - Rendering relationship counts cleanly in the UI with Swift's built-in Markdown inflection:
+     ```swift
+     Text("^[\(user.jobs.count) job](inflect: true)")
+     ```
+4. **Automatic Model Container Schema Detection**:
+   - Registering `modelContainer(for: User.self)` automatically discovers and configures the related `Job` entity.

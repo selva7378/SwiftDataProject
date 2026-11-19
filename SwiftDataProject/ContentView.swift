@@ -21,7 +21,7 @@ struct ContentView: View {
                 minimumJoinDate: showingUpcomingOnly ? .now : .distantPast,
                 sortOrder: sortOrder
             )
-            .navigationTitle("Users")
+            .navigationTitle("Users & Jobs")
             .navigationDestination(for: User.self) { user in
                 EditUserView(user: user)
             }
@@ -52,21 +52,39 @@ struct ContentView: View {
 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add Samples", systemImage: "plus") {
-                        try? modelContext.delete(model: User.self)
-
-                        let first = User(name: "Ed Sheeran", city: "London", joinDate: .now.addingTimeInterval(86400 * -10))
-                        let second = User(name: "Rosa Diaz", city: "New York", joinDate: .now.addingTimeInterval(86400 * -5))
-                        let third = User(name: "Roy Kent", city: "London", joinDate: .now.addingTimeInterval(86400 * 5))
-                        let fourth = User(name: "Johnny English", city: "London", joinDate: .now.addingTimeInterval(86400 * 10))
-
-                        modelContext.insert(first)
-                        modelContext.insert(second)
-                        modelContext.insert(third)
-                        modelContext.insert(fourth)
+                        addSamples()
                     }
                 }
             }
+            .onAppear {
+                addSamples()
+            }
         }
+    }
+
+    private func addSamples() {
+        try? modelContext.delete(model: User.self)
+        try? modelContext.delete(model: Job.self)
+
+        let first = User(name: "Ed Sheeran", city: "London", joinDate: .now.addingTimeInterval(86400 * -10))
+        let second = User(name: "Rosa Diaz", city: "New York", joinDate: .now.addingTimeInterval(86400 * -5))
+        let third = User(name: "Roy Kent", city: "London", joinDate: .now.addingTimeInterval(86400 * 5))
+        let fourth = User(name: "Johnny English", city: "London", joinDate: .now.addingTimeInterval(86400 * 10))
+
+        let job1 = Job(name: "Record new album", priority: 3)
+        let job2 = Job(name: "World stadium tour", priority: 5)
+        let job3 = Job(name: "Solve tactical cases", priority: 4)
+        let job4 = Job(name: "Coach Richmond FC", priority: 5)
+
+        modelContext.insert(first)
+        modelContext.insert(second)
+        modelContext.insert(third)
+        modelContext.insert(fourth)
+
+        first.jobs.append(job1)
+        first.jobs.append(job2)
+        second.jobs.append(job3)
+        third.jobs.append(job4)
     }
 }
 
