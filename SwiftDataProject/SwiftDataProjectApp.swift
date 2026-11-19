@@ -2,10 +2,9 @@
 //  SwiftDataProjectApp.swift
 //  SwiftDataProject
 //
-//  Created by Remitbee on 19/11/26.
-//
 
 import SwiftUI
+import SwiftData
 
 @main
 struct SwiftDataProjectApp: App {
@@ -13,5 +12,6 @@ struct SwiftDataProjectApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: User.self)
     }
 }
