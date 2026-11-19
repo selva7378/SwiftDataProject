@@ -1,31 +1,70 @@
-# SwiftData Project — Lesson 4: Relationships with SwiftData, SwiftUI, and @Query
+# SwiftDataProject 📦
 
-This branch covers **Lesson 4** of Project 12 in Paul Hudson's [100 Days of SwiftUI](https://www.hackingwithswift.com/books/ios-swiftui/relationships-with-swiftdata-swiftui-and-query).
+An advanced SwiftUI & SwiftData exploratory application built as part of **Project 12 (Days 57–59)** in Paul Hudson's [100 Days of SwiftUI](https://www.hackingwithswift.com/100/swiftui).
+
+This repository is organized into dedicated branches for each tutorial lesson, with code and visual verification screenshots for each step.
 
 ---
 
-## 📱 Preview
+## 📱 Screenshots & Lessons Gallery
 
 <p align="center">
-  <img src="screenshots/screenshot_lesson4.png" alt="Lesson 4 - Relationships with SwiftData" width="300" />
+  <img src="screenshots/screenshot_lesson1.png" width="210" alt="Lesson 1 - Editing Model Objects" />
+  &nbsp;
+  <img src="screenshots/screenshot_lesson2.png" width="210" alt="Lesson 2 - Filtering with Predicate" />
+  &nbsp;
+  <img src="screenshots/screenshot_lesson3.png" width="210" alt="Lesson 3 - Dynamic Sorting & Filtering" />
+  &nbsp;
+  <img src="screenshots/screenshot_lesson4.png" width="210" alt="Lesson 4 - Relationships & Cascade Delete" />
+</p>
+<p align="center">
+  <em>1. Editing Model Objects &nbsp;&bull;&nbsp; 2. Predicate Filtering &nbsp;&bull;&nbsp; 3. Dynamic Subview Queries &nbsp;&bull;&nbsp; 4. Model Relationships</em>
 </p>
 
 ---
 
-## 💡 Concepts Covered
+## 🌿 Branches Overview
 
-1. **Modeling Relationships with `@Relationship`**:
-   - Creating a second model `Job` with properties `name`, `priority`, and optional inverse `owner: User?`.
-   - Linking `User` to `Job` with a cascade deletion rule:
-     ```swift
-     @Relationship(deleteRule: .cascade) var jobs = [Job]()
-     ```
-2. **Cascade Delete Rule**:
-   - Ensuring that when a `User` is deleted from the SwiftData context, all of their associated `Job` records are automatically removed.
-3. **Displaying Related Entities**:
-   - Rendering relationship counts cleanly in the UI with Swift's built-in Markdown inflection:
-     ```swift
-     Text("^[\(user.jobs.count) job](inflect: true)")
-     ```
-4. **Automatic Model Container Schema Detection**:
-   - Registering `modelContainer(for: User.self)` automatically discovers and configures the related `Job` entity.
+| Branch | Topic | Key Concepts |
+| :--- | :--- | :--- |
+| **[`lesson-1-editing-swiftdata-model-objects`](https://github.com/selva7378/SwiftDataProject/tree/lesson-1-editing-swiftdata-model-objects)** | Editing Model Objects | `@Model`, `@Bindable`, `modelContainer`, in-place editing with `Form` |
+| **[`lesson-2-filtering-query-using-predicate`](https://github.com/selva7378/SwiftDataProject/tree/lesson-2-filtering-query-using-predicate)** | Predicate Filtering | `#Predicate<T>`, `localizedStandardContains`, logical expressions |
+| **[`lesson-3-dynamically-sorting-and-filtering`](https://github.com/selva7378/SwiftDataProject/tree/lesson-3-dynamically-sorting-and-filtering)** | Dynamic Query Manipulation | Custom subview (`UsersView`), `_users = Query(...)`, `SortDescriptor` arrays |
+| **[`lesson-4-relationships-with-swiftdata`](https://github.com/selva7378/SwiftDataProject/tree/lesson-4-relationships-with-swiftdata)** | Model Relationships | `@Relationship(deleteRule: .cascade)`, one-to-many, automatic schema detection |
+
+---
+
+## 🛠️ Tech Stack & Requirements
+
+- **iOS:** 17.0+
+- **Frameworks:** SwiftUI, SwiftData, Foundation
+- **Language:** Swift 5.9+ / Swift 6
+- **IDE:** Xcode 15+ / 16+
+
+---
+
+## 🚀 How to Run
+
+1. Clone the repository:
+   ```bash
+   git clone git@github.com:selva7378/SwiftDataProject.git
+   cd SwiftDataProject
+   ```
+2. Switch to any branch to explore specific lesson code:
+   ```bash
+   git checkout lesson-1-editing-swiftdata-model-objects
+   # or
+   git checkout lesson-2-filtering-query-using-predicate
+   # or
+   git checkout lesson-3-dynamically-sorting-and-filtering
+   # or
+   git checkout lesson-4-relationships-with-swiftdata
+   ```
+3. Open `SwiftDataProject.xcodeproj` in Xcode and press `Cmd + R` to run on any simulator.
+
+---
+
+## 👤 Author
+
+**Selva Ganesh**
+- GitHub: [@selva7378](https://github.com/selva7378)
