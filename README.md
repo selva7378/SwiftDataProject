@@ -1,30 +1,30 @@
-# SwiftData Project — Lesson 2: Filtering @Query Using #Predicate
+# SwiftData Project — Lesson 3: Dynamically Sorting and Filtering @Query
 
-This branch covers **Lesson 2** of Project 12 in Paul Hudson's [100 Days of SwiftUI](https://www.hackingwithswift.com/books/ios-swiftui/filtering-query-using-predicate).
+This branch covers **Lesson 3** of Project 12 in Paul Hudson's [100 Days of SwiftUI](https://www.hackingwithswift.com/books/ios-swiftui/dynamically-sorting-and-filtering-query-with-swiftdata).
 
 ---
 
 ## 📱 Preview
 
 <p align="center">
-  <img src="screenshots/screenshot_lesson2.png" alt="Lesson 2 - Filtering with #Predicate" width="300" />
+  <img src="screenshots/screenshot_lesson3.png" alt="Lesson 3 - Dynamic Sorting and Filtering" width="300" />
 </p>
 
 ---
 
 ## 💡 Concepts Covered
 
-1. **`#Predicate` Macro**:
-   - Filtering SwiftData models directly at database query time.
-   - Example: filtering users whose names contain "R" and whose city is "London":
+1. **Dynamic `@Query` in a Custom Subview (`UsersView`)**:
+   - Because a view's `@Query` cannot be reconfigured directly after initialization, we extract the list into a dedicated child view (`UsersView`).
+   - Inside `UsersView.init`, we configure `_users = Query(...)` using dynamic runtime predicates and sort descriptors:
      ```swift
-     @Query(filter: #Predicate<User> { user in
-         user.name.localizedStandardContains("R") &&
-         user.city == "London"
-     }, sort: \User.name) var users: [User]
+     init(minimumJoinDate: Date, sortOrder: [SortDescriptor<User>]) {
+         _users = Query(filter: #Predicate<User> { user in
+             user.joinDate >= minimumJoinDate
+         }, sort: sortOrder)
+     }
      ```
-2. **Type-Safe Predicate Expressions**:
-   - Using standard Swift closure syntax that compiles down into underlying database conditions.
-   - Leveraging `localizedStandardContains` for case- and diacritic-insensitive search.
-3. **Combining Multiple Conditions**:
-   - Using logical `&&` and `||` to chain multiple query constraints cleanly.
+2. **Dynamic Sort Orders**:
+   - Using `SortDescriptor` arrays with a toolbar `Menu` and `Picker` to switch between "Sort by Name" and "Sort by Join Date".
+3. **Dynamic Filtering**:
+   - Toggling between "Show Upcoming" (users whose `joinDate >= .now`) and "Show Everyone".
