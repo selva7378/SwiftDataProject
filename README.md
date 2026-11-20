@@ -31,6 +31,7 @@ This repository is organized into dedicated branches for each tutorial lesson, w
 | **[`lesson-2-filtering-query-using-predicate`](https://github.com/selva7378/SwiftDataProject/tree/lesson-2-filtering-query-using-predicate)** | Predicate Filtering | `#Predicate<T>`, `localizedStandardContains`, logical expressions |
 | **[`lesson-3-dynamically-sorting-and-filtering`](https://github.com/selva7378/SwiftDataProject/tree/lesson-3-dynamically-sorting-and-filtering)** | Dynamic Query Manipulation | Custom subview (`UsersView`), `_users = Query(...)`, `SortDescriptor` arrays |
 | **[`lesson-4-relationships-with-swiftdata`](https://github.com/selva7378/SwiftDataProject/tree/lesson-4-relationships-with-swiftdata)** | Model Relationships | `@Relationship(deleteRule: .cascade)`, one-to-many, automatic schema detection |
+| **[`swiftdata-challenge` (in iExpense)](https://github.com/selva7378/iExpense/tree/swiftdata-challenge)** | Project 12 Wrap-up Challenge | Upgrading iExpense to SwiftData, dynamic sorting by name/amount, dynamic filtering (All/Personal/Business) |
 
 ---
 
